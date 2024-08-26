@@ -1,7 +1,13 @@
 import "./style.css";
+import "./public/assets/css/style.css";
 
 import Swiper from "swiper";
 import "swiper/css";
+
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+
+Swiper.use([Pagination]);
 
 const Next1 = document.getElementById("Next1");
 const Next2 = document.getElementById("Next2");
@@ -14,15 +20,6 @@ const swiper = new Swiper(".swiper", {
   pagination: {
     el: ".swiper-pagination",
     clickable: true,
-  },
-
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-
-  scrollbar: {
-    el: ".swiper-scrollbar",
   },
 });
 
