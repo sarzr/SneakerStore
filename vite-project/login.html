@@ -25,7 +25,7 @@
       <h2 class="flex justify-center text-[31px] font-Inter font-semibold">
         Login to Your Account
       </h2>
-      <form action="" class="flex justify-center flex-col gap-4 mt-8">
+      <form id="login-form" class="flex justify-center flex-col gap-4 mt-8">
         <div class="relative flex justify-center w-[85%] m-auto">
           <div class="absolute left-0 top-[12px] h-[16px] flex">
             <i class="fas fa-envelope text-[#6C757D]"></i>
@@ -51,19 +51,20 @@
             class="fas fa-eye-slash absolute top-3 right-[10px] text-[#6C757D] text-sm"
           ></i>
         </div>
+        <a href="./signup" class="flex justify-center mt-3 text-sm font-medium font-Inter"
+          >Signup</a
+        >
+        <button
+          type="submit"
+          class="text-sm font-medium font-Inter bg-[#6E7174] text-white w-[90%] rounded-full m-auto flex justify-center items-center mt-24 py-3"
+          id="Submit"
+        >
+          Login
+        </button>
       </form>
-      <span class="flex justify-center mt-3 text-sm font-medium font-Inter"
-        >Signup</span
-      >
-      <button
-        class="text-sm font-medium font-Inter bg-[#6E7174] text-white w-[90%] rounded-full m-auto flex justify-center items-center mt-32 py-3"
-        id="Submit"
-      >
-        Login
-      </button>
     </div>
-    <script type="module" src="./main.js"></script>
-    <!-- <script type="module" src="./src/scripts/login.js"></script> -->
-    <script type="module" src="./src/libs/register-form-ui.js"></script>
+    <script type="module" defer src="./main.js"></script>
+    <script type="module" defer src="./src/scripts/login.js"></script>
+    <script type="module" defer src="./src/libs/register-form-ui.js"></script>
   </body>
 </html>
