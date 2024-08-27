@@ -4,7 +4,7 @@
   gap: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  bottom: 12%!important;
+  bottom: 12% !important;
 }
 .swiper-pagination .swiper-pagination-bullet {
   width: 30px;
@@ -13,4 +13,16 @@
 }
 .swiper-pagination .swiper-pagination-bullet-active {
   background-color: black;
+}
+
+@media (min-width: 1199px) {
+  .swiper-pagination {
+    bottom: 14% !important;
+  }
+}
+
+@media (min-width: 390px) {
+  #Next3 {
+    margin-top: 5.75rem;
+  }
 }

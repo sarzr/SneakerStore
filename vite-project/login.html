@@ -28,10 +28,7 @@
       <form action="" class="flex justify-center flex-col gap-4 mt-8">
         <div class="relative flex justify-center w-[85%] m-auto">
           <div class="absolute left-0 top-[12px] h-[16px] flex">
-            <!-- <img src="./public/assets/images/envelope-fill.png" alt="" /> -->
-            <!-- <i class="fas fa-bag-shopping"></i> -->
-            <!-- <i class="fas fa-briefcase"></i> -->
-            <i class="fas fa-envelope text-[#6C757D] active:text-black"></i>
+            <i class="fas fa-envelope text-[#6C757D]"></i>
           </div>
           <input
             id="inputEnvelope"
@@ -42,8 +39,7 @@
         </div>
         <div class="relative flex justify-center w-[85%] m-auto">
           <div class="absolute left-0 top-[12px] h-[17px] flex">
-            <!-- <img src="./public/assets/images/input-prefix.png" alt="" /> -->
-            <i class="fas fa-lock text-[#6C757D] active:text-black"></i>
+            <i class="fas fa-lock text-[#6C757D]"></i>
           </div>
           <input
             id="inputPassword"
@@ -51,19 +47,23 @@
             type="password"
             placeholder="Password"
           />
+          <i
+            class="fas fa-eye-slash absolute top-3 right-[10px] text-[#6C757D] text-sm"
+          ></i>
         </div>
       </form>
       <span class="flex justify-center mt-3 text-sm font-medium font-Inter"
         >Signup</span
       >
       <button
-        class="text-sm font-medium font-Inter bg-[#212529] text-white w-[90%] rounded-full m-auto flex justify-center items-center mt-32 py-3"
-        id="Next3"
+        class="text-sm font-medium font-Inter bg-[#6E7174] text-white w-[90%] rounded-full m-auto flex justify-center items-center mt-32 py-3"
+        id="Submit"
       >
-        Signin
+        Login
       </button>
     </div>
-    <script src="./main.js"></script>
-    <script src="./scripts/login.js"></script>
+    <script type="module" src="./main.js"></script>
+    <!-- <script type="module" src="./src/scripts/login.js"></script> -->
+    <script type="module" src="./src/libs/register-form-ui.js"></script>
   </body>
 </html>
