@@ -25,16 +25,14 @@
       <h2 class="flex justify-center text-[31px] font-Inter font-semibold">
         Signup to Your Account
       </h2>
-      <form
-        action="signup-form"
-        class="flex justify-center flex-col gap-4 mt-8"
-      >
+      <form id="signup-form" class="flex justify-center flex-col gap-4 mt-8">
         <div class="relative flex justify-center w-[85%] m-auto">
           <div class="absolute left-0 top-[12px] h-[16px] flex">
             <i class="fas fa-envelope text-[#6C757D]"></i>
           </div>
           <input
             id="inputEnvelope"
+            name="username"
             class="w-[85%] border-0 focus:outline-none focus:ring-0"
             type="text"
             placeholder="Username"
@@ -46,6 +44,7 @@
           </div>
           <input
             id="inputPassword"
+            name="password"
             class="w-[85%] border-0 focus:outline-none focus:ring-0"
             type="password"
             placeholder="Password"
@@ -68,7 +67,7 @@
       </form>
     </div>
     <script type="module" defer src="./main.js"></script>
-    <!-- <script type="module" src="./src/scripts/signup.js"></script> -->
+    <script type="module" src="./src/scripts/signup.js"></script>
     <script type="module" defer src="./src/libs/register-form-ui.js"></script>
   </body>
 </html>
