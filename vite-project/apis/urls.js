@@ -3,10 +3,7 @@ export const urls = {
     login: "/auth/login",
     signup: "/auth/signup",
   },
-  user: {
-    list: "/user",
-    delete: "/user",
-  },
+  user: "/user",
   sneaker: {
     list: "/sneaker",
     sneakerItems: (id) => `/sneaker/item/${id}`,

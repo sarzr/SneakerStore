@@ -7,7 +7,6 @@ export const toast = (text, mode = "error") => {
     close: true,
     style: {
       background: mode === "success" ? "green" : "red",
-      // background: "#F9695A",
       borderRadius: "5px",
       fontWeight: "500",
       width: "100%",

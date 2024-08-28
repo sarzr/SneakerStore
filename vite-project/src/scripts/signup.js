@@ -1,5 +1,6 @@
 import { signup } from "../../apis/services/auth.service";
 import { errorHandler } from "../libs/error-handler";
+import { setSessionToken } from "../libs/session-manager";
 import { toast } from "../libs/toast";
 
 const signupForm = document.getElementById("signup-form");

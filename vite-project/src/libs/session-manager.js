@@ -7,3 +7,7 @@ export const setSessionToken = (token) => {
 export const getSessionToken = () => {
   return localStorage.getItem(tokenName);
 };
+
+export const removeSessionToken = () => {
+  localStorage.removeItem(tokenName);
+};
