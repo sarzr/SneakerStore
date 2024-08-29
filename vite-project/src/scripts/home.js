@@ -9,6 +9,11 @@ const productsEl = document.getElementById("products");
 const productBrands = document.getElementById("products-brand");
 const username = document.getElementById("username");
 const greeting = document.getElementById("greeting");
+const pages = document.getElementById("page");
+const nextPage = document.getElementById("next-page");
+const prevPage = document.getElementById("prev-page");
+let totalPages;
+let curPage = 1;
 
 async function get() {
   try {
@@ -54,6 +59,9 @@ async function getProducts(brand = null, page = 1) {
     console.log(sneakersResponse);
 
     const sneakers = sneakersResponse.data;
+
+    totalPages = sneakersResponse.totalPages;
+
     productsEl.innerHTML = "";
 
     sneakers.forEach((sneaker) => {
@@ -71,6 +79,7 @@ async function getProducts(brand = null, page = 1) {
       `;
       productsEl.append(product);
     });
+    pagination(page, totalPages);
   } catch (error) {
     errorHandler(error);
   }
@@ -105,7 +114,7 @@ async function loadBrands() {
 
     const allBrandsEl = document.createElement("div");
     allBrandsEl.className =
-      "bg-[#343A40] rounded-3xl text-white w-full] text-[17px] py-[4px] px-[18px] flex justify-center items-center cursor-pointer";
+      "bg-[#343A40] rounded-3xl text-white w-full text-[17px] py-[4px] px-[18px] flex justify-center items-center cursor-pointer";
     allBrandsEl.innerHTML = "All";
     allBrandsEl.addEventListener("click", () => {
       getProducts();
@@ -116,7 +125,7 @@ async function loadBrands() {
     brands.forEach((brand) => {
       const brandEl = document.createElement("div");
       brandEl.className =
-        "py-[3px] px-[10px] w-full] border-2 border-[#343A40] rounded-3xl flex justify-center items-center";
+        "py-[3px] px-[10px] w-full border-2 border-[#343A40] rounded-3xl flex justify-center items-center";
       brandEl.innerHTML = brand;
       brandEl.addEventListener("click", () => {
         getProducts(brand);
@@ -129,3 +138,40 @@ async function loadBrands() {
   }
 }
 loadBrands();
+
+function pagination(page, totalPages) {
+  pages.innerHTML = "";
+  const maxPage = 3;
+
+  let startPage = Math.floor((page - 1) / maxPage) * maxPage + 1;
+  let endPage = Math.min(startPage + maxPage - 1, totalPages);
+
+  for (let i = startPage; i <= endPage; i++) {
+    const pageSpan = document.createElement("span");
+    pageSpan.innerText = i;
+    pageSpan.className = `px-3 py-1 ${
+      i === page ? "bg-black text-white active" : "bg-gray-200"
+    } rounded-md`;
+    pageSpan.addEventListener("click", () => changePage(i));
+    pages.append(pageSpan);
+    prevPage.disabled = page <= 1 ? true : false;
+    nextPage.disabled = page >= totalPages ? true : false;
+  }
+}
+function changePage(page) {
+  getProducts(null, page);
+  pagination(page, totalPages);
+}
+
+prevPage.addEventListener("click", () => {
+  if (curPage > 1) {
+    curPage--;
+    changePage(curPage);
+  }
+});
+nextPage.addEventListener("click", () => {
+  if (curPage < totalPages) {
+    curPage++;
+    changePage(curPage);
+  }
+});
