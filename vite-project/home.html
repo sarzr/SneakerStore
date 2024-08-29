@@ -10,13 +10,12 @@
     <div class="mx-6 mt-4">
       <div class="flex justify-between items-center">
         <div>
-          <span class="text-[#757475] font-Inter font-medium text-[16px]"
-            >Good Morning 👋
-            <!-- <i class="fa-light fa-hand-wave"></i> -->
+          <span
+            id="greeting"
+            class="text-[#757475] font-Inter font-medium text-[16px]"
+          >
           </span>
-          <h3 class="username font-bold text-[16px] font-Inter mt-1">
-            Saeed Abdilar
-          </h3>
+          <h3 id="username" class="font-bold text-[16px] font-Inter mt-1"></h3>
         </div>
         <div class="flex gap-2">
           <svg
@@ -60,7 +59,7 @@
         </div>
       </div>
       <form id="search">
-        <div class="relative mt-7 ml-3">
+        <div class="relative mt-5 ml-3">
           <input
             class="border-0 ml-4 focus:outline-none focus:ring-0"
             type="text"
@@ -100,16 +99,39 @@
           </svg>
         </div>
       </form>
-      <div class="flex justify-between items-center mt-7">
+      <div class="flex justify-between items-center mt-6">
         <h2 class="text-[20px] font-semibold font-Inter">Most Popular</h2>
         <h3 class="text-[16px] font-semibold font-Inter relative top-[5px]">
           See All
         </h3>
       </div>
-      <div class="products-brand"></div>
+      <div
+        id="products-brand"
+        class="products-brand mt-[0.3rem] flex gap-4 items-center overflow-auto"
+      >
+        <!-- <div
+          class="bg-[#343A40] rounded-3xl text-white w-[60px] py-[4px] px-[12px] h-[35px] flex justify-center items-center"
+        > -->
+        <!-- <div
+          class="bg-[#343A40] rounded-3xl text-white w-[60px] py-[4px] px-[12px] h-[35px] flex justify-center items-center"
+        >
+          All
+        </div>
+        <div class="py-[3px] px-[10px] w-[60px] h-[35px] border-2 border-[#343A40] rounded-3xl flex justify-center items-center">Nike</div>
+        <div class="py-[3px] px-[10px] w-[60px] h-[35px] border-2 border-[#343A40] rounded-3xl flex justify-center items-center">HUSHPUPPIES</div>
+        <div class="py-[3px] px-[10px] w-[60px] h-[35px] border-2 border-[#343A40] rounded-3xl flex justify-center items-center">ADIDAS</div> -->
+      </div>
+      <!-- "NIKE",
+        "HUSHPUPPIES",
+        "CONVERSE",
+        "NEW BALANCE",
+        "ADIDAS",
+        "REEBOK",
+        "PUMA",
+        "ASICS" -->
 
       <div
-        class="grid grid-cols-2 gap-4 mt-9 h-[500px] overflow-auto"
+        class="grid grid-cols-2 gap-4 mt-5 h-[500px] overflow-auto"
         id="products"
       >
         <!-- <div>
@@ -125,6 +147,11 @@
             </p>
           </div>
         </div> -->
+      </div>
+      <div class="paginations flex gap-3 items-center justify-center mt-3">
+        <span id="prev-page">Previous</span>
+        <span id="page" class="bg-slate-400 px-4 py-2 rounded text-slate-100 flex gap-3">1</span>
+        <span id="next-page">Next</span>
       </div>
       <div class="flex gap-11 justify-center w-full mt-9">
         <div>
