@@ -15,6 +15,15 @@
   background-color: black;
 }
 
+.products-brand {
+  scrollbar-width: none;
+}
+#products {
+  scrollbar-width: none;
+}
+.sneaker-sc {
+  scrollbar-width: none;
+}
 @media (min-width: 1199px) {
   .swiper-pagination {
     bottom: 14% !important;

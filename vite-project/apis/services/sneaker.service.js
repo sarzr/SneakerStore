@@ -2,8 +2,6 @@ import { httpClient } from "../client";
 import { urls } from "../urls";
 
 export async function getSneakers(params) {
-  console.log("Request Parameters:", params);
-
   const response = await httpClient().get(urls.sneaker.list, {
     params: {
       page: params.page,
@@ -22,7 +20,7 @@ export async function getSneakerBrands() {
   return response.data;
 }
 
-export async function getSneakerItems() {
-  const response = await httpClient().get(urls.sneaker.sneakerItems);
+export async function getSneakerItems(id) {
+  const response = await httpClient().get(urls.sneaker.sneakerItems(id));
   return response.data;
 }

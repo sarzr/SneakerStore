@@ -78,6 +78,9 @@ async function getProducts(brand = selectedBrand, page = 1, search = "") {
       sneakers.forEach((sneaker) => {
         const product = document.createElement("div");
         product.innerHTML = renderSneakers(sneaker);
+        product.addEventListener("click", () => {
+          window.location.href = `/sneakerItem.html?id=${sneaker.id}`;
+        });
         productsEl.append(product);
       });
       pagination(page, totalPages);
@@ -106,11 +109,11 @@ function renderSneakers(sneaker) {
   `;
 }
 
-function notFoundSneaker(searchTerm) {
+function notFoundSneaker(searchValu) {
   const notFound = document.createElement("div");
   notFound.innerHTML = `
     <div class="flex justify-between items-center mt-4">
-      <h2 class="font-bold text-[20px]">Results for "${searchTerm}"</h2>
+      <h2 class="font-bold text-[20px]">Results for "${searchValu}"</h2>
       <span class="font-bold text-[16px]">0 found</span>
     </div>
     <div class="flex flex-col items-center text-center font-Inter mt-12">
@@ -233,10 +236,10 @@ searchInput.addEventListener(
   "keyup",
   debounce((event) => {
     const searchValue = event.target.value.trim();
-    test(searchValue);
+    searching(searchValue);
   }, 3000)
 );
-function test(searchValue) {
+function searching(searchValue) {
   curPage = 1;
   getProducts(null, curPage, searchValue);
 }
