@@ -9,7 +9,6 @@ export const toast = (text, mode = "error") => {
       background: mode === "success" ? "green" : "red",
       borderRadius: "5px",
       fontWeight: "500",
-      width: "100%",
     },
   }).showToast();
 };

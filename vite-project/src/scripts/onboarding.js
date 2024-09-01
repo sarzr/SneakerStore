@@ -1,14 +1,9 @@
 import Swiper from "swiper";
-import "swiper/css";
 
-import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
 Swiper.use([Pagination]);
 
-const Next1 = document.getElementById("Next1");
-const Next2 = document.getElementById("Next2");
-// const Next3 = document.getElementById("Next3");
 
 const swiper = new Swiper(".swiper", {
   direction: "horizontal",
@@ -20,5 +15,28 @@ const swiper = new Swiper(".swiper", {
   },
 });
 
-Next1.addEventListener("click", () => swiper.slideNext());
-Next2.addEventListener("click", () => swiper.slideNext());
+const nextBtn = document.getElementById("Next");
+
+const updateBtnText = () => {
+  if (swiper.isEnd) {
+    nextBtn.innerText = "Get Started";
+    nextBtn.href = "./login";
+  } else {
+    nextBtn.innerText = "Next";
+    nextBtn.href = "#";
+  }
+};
+
+swiper.on("slideChange", updateBtnText);
+
+const btnClicked = () => {
+  if (swiper.isEnd) {
+    window.location.href = nextBtn.href;
+  } else {
+    swiper.slideNext();
+  }
+};
+
+nextBtn.addEventListener("click", btnClicked);
+
+updateBtnText();

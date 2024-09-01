@@ -10,8 +10,6 @@ export async function getSneakers(params) {
       search: params.search,
     },
   });
-  // console.log(response);
-  // console.log(response.data);
   return response.data;
 }
 

@@ -5,34 +5,33 @@ import {
 import { getUser } from "../../apis/services/user.service";
 import { errorHandler } from "../libs/error-handler";
 import debounce from "lodash.debounce";
+import { removeSessionToken } from "../libs/session-manager";
 
 const productsEl = document.getElementById("products");
 const productBrands = document.getElementById("products-brand");
 const username = document.getElementById("username");
 const greeting = document.getElementById("greeting");
 const pages = document.getElementById("page");
-const nextPage = document.getElementById("next-page");
-const prevPage = document.getElementById("prev-page");
 const searchInput = document.getElementById("searchInput");
 const paginations = document.getElementById("paginations");
 const bottomEls = document.getElementById("bottomEls");
 const theMost = document.getElementById("theMost");
 const notFoundEl = document.getElementById("notFoundEl");
+const scrollBar = document.querySelector(".scrollBar");
+const logOut = document.getElementById("logOut");
 let totalPages;
 let curPage = 1;
 let selectedBrand = null;
+let currentSearchValue = "";
 
 async function get() {
   try {
     const user = await getUser();
-    // console.log(user);
     username.innerText = user.username;
   } catch (error) {
-    // console.log(error);
     errorHandler(error);
   }
 }
-
 get();
 
 function updateGreeting() {
@@ -51,7 +50,6 @@ function updateGreeting() {
   }
   greeting.innerText = greetingTxt;
 }
-
 updateGreeting();
 
 async function getProducts(brand = selectedBrand, page = 1, search = "") {
@@ -62,11 +60,7 @@ async function getProducts(brand = selectedBrand, page = 1, search = "") {
     }
 
     const sneakersResponse = await getSneakers(params);
-
-    console.log(sneakersResponse);
-
     const sneakers = sneakersResponse.data;
-    console.log(sneakers);
 
     totalPages = sneakersResponse.totalPages;
 
@@ -112,7 +106,7 @@ function renderSneakers(sneaker) {
 function notFoundSneaker(searchValu) {
   const notFound = document.createElement("div");
   notFound.innerHTML = `
-    <div class="flex justify-between items-center mt-4">
+    <div class="flex justify-between items-baseline mt-6">
       <h2 class="font-bold text-[20px]">Results for "${searchValu}"</h2>
       <span class="font-bold text-[16px]">0 found</span>
     </div>
@@ -132,11 +126,12 @@ function notFoundSneaker(searchValu) {
 
 function elementStyles(show) {
   const display = show ? "flex" : "none";
-  paginations.style.display = show ? "flex" : "none";
+  paginations.style.display = display;
   bottomEls.style.display = display;
   productsEl.style.display = show ? "grid" : "none";
   productBrands.style.display = display;
   theMost.style.display = display;
+  scrollBar.style.display = show ? "block" : "none";
   notFoundEl.style.display = show ? "none" : "block";
 }
 
@@ -160,13 +155,11 @@ function brandClicked(selectedBrandEl) {
   );
   selectedBrand =
     selectedBrandEl.innerText === "All" ? null : selectedBrandEl.innerText;
-  // console.log(selectedBrandEl.innerText);
 }
 
 async function loadBrands() {
   try {
     const brands = await getSneakerBrands();
-    // console.log(brands);
 
     const allBrandsEl = document.createElement("div");
     allBrandsEl.className =
@@ -197,10 +190,10 @@ loadBrands();
 
 function pagination(page, totalPages) {
   pages.innerHTML = "";
-  const maxPage = 3;
 
-  let startPage = Math.floor((page - 1) / maxPage) * maxPage + 1;
-  let endPage = Math.min(startPage + maxPage - 1, totalPages);
+  const maxPage = 5;
+  const startPage = 1;
+  const endPage = Math.min(maxPage, totalPages);
 
   for (let i = startPage; i <= endPage; i++) {
     const pageSpan = document.createElement("span");
@@ -210,36 +203,28 @@ function pagination(page, totalPages) {
     } rounded-md`;
     pageSpan.addEventListener("click", () => changePage(i));
     pages.append(pageSpan);
-    prevPage.disabled = page <= 1 ? true : false;
-    nextPage.disabled = page >= totalPages ? true : false;
   }
 }
 function changePage(page) {
-  getProducts(selectedBrand, page);
+  getProducts(selectedBrand, page, currentSearchValue);
   pagination(page, totalPages);
 }
-
-prevPage.addEventListener("click", () => {
-  if (curPage > 1) {
-    curPage--;
-    changePage(curPage);
-  }
-});
-nextPage.addEventListener("click", () => {
-  if (curPage < totalPages) {
-    curPage++;
-    changePage(curPage);
-  }
-});
-
 searchInput.addEventListener(
   "keyup",
   debounce((event) => {
     const searchValue = event.target.value.trim();
+    currentSearchValue = searchValue;
     searching(searchValue);
   }, 3000)
 );
 function searching(searchValue) {
   curPage = 1;
   getProducts(null, curPage, searchValue);
+  pagination(curPage, totalPages);
 }
+
+logOut.addEventListener("click", (e) => {
+  e.preventDefault();
+  removeSessionToken();
+  window.location.href = "./login";
+});
