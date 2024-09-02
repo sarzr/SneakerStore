@@ -2,7 +2,7 @@ import { getSneakerItems } from "../../apis/services/sneaker.service";
 import { errorHandler } from "../libs/error-handler";
 
 const sneakerName = document.getElementById("sneaker-name");
-const images = document.getElementById("images");
+const image = document.getElementById("image");
 const sneakerPrice = document.getElementById("sneaker-price");
 const sneakerColors = document.getElementById("sneaker-colors");
 const sneakerSizes = document.getElementById("sneaker-sizes");
@@ -34,25 +34,19 @@ toggle.addEventListener("click", () => {
 add.addEventListener("click", () => {
   sneakerCount++;
   count.innerText = sneakerCount;
-  console.log((count.innerText = sneakerCount));
-
   updatePrice();
 });
 remove.addEventListener("click", () => {
   if (sneakerCount > 0) {
     sneakerCount--;
     count.innerText = sneakerCount;
-    console.log((count.innerText = sneakerCount));
     updatePrice();
   }
 });
 
 function updatePrice() {
   const totalPrice = basePrice * sneakerCount;
-  console.log(totalPrice);
-  console.log(basePrice);
-  console.log(sneakerCount);
-  sneakerPrice.innerText = `$${totalPrice.toFixed(2)}`;
+  sneakerPrice.innerText = `$${totalPrice}.00`;
 }
 
 async function getSneaker(sneakerId) {
@@ -61,11 +55,10 @@ async function getSneaker(sneakerId) {
 
     if (sneaker && sneaker.id === parseInt(sneakerId)) {
       sneakerName.innerText = sneaker.name;
-      images.innerHTML = `<img src="${sneaker.imageURL}" alt="sneaker-image" />`;
+      image.innerHTML = `<img src="${sneaker.imageURL}" alt="sneaker-image" />`;
       sneakerPrice.innerText = `$${sneaker.price}.00`;
 
       basePrice = parseFloat(sneaker.price);
-      sneakerPrice.innerText = `$${basePrice.toFixed(2)}`;
 
       const colors = sneaker.colors.split("|");
       sneakerColors.innerHTML = colors
@@ -83,7 +76,6 @@ async function getSneaker(sneakerId) {
           colorEl.forEach((el) => {
             el.innerHTML = "";
           });
-          console.log(color);
 
           const whiteBack = color.classList.contains("bg-[white]");
 

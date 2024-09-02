@@ -135,7 +135,46 @@ function elementStyles(show) {
   notFoundEl.style.display = show ? "none" : "block";
 }
 
+async function loadBrands() {
+  try {
+    const brands = await getSneakerBrands();
+
+    const allBrandsEl = document.createElement("div");
+    allBrandsEl.classList =
+      "bg-[#343A40] rounded-3xl text-white w-full text-[17px] py-[4px] px-[18px] flex justify-center items-center cursor-pointer";
+    allBrandsEl.innerText = "All";
+    allBrandsEl.addEventListener("click", () => {
+      if (selectedBrand !== null) {
+        selectedBrand = null;
+        getProducts();
+        brandClicked(allBrandsEl);
+      }
+    });
+    productBrands.append(allBrandsEl);
+
+    brands.forEach((brand) => {
+      const brandEl = document.createElement("div");
+      brandEl.classList =
+        "py-[4px] px-[18px] w-full border-2 border-[#343A40] rounded-3xl flex justify-center items-center whitespace-nowrap";
+      brandEl.innerHTML = brand;
+      brandEl.addEventListener("click", () => {
+        if (selectedBrand !== brand) {
+          selectedBrand = brand;
+          getProducts(brand);
+          brandClicked(brandEl);
+        }
+      });
+      productBrands.append(brandEl);
+    });
+  } catch (error) {
+    errorHandler(error);
+  }
+}
+
 function brandClicked(selectedBrandEl) {
+  selectedBrand =
+    selectedBrandEl.innerText === "All" ? null : selectedBrandEl.innerText;
+
   const allBrandEls = productBrands.querySelectorAll("div");
   allBrandEls.forEach((brandEl) => {
     brandEl.classList.remove("bg-[#343A40]", "text-white");
@@ -153,49 +192,16 @@ function brandClicked(selectedBrandEl) {
     "border-[#343A40]",
     "text-[#343A40]"
   );
-  selectedBrand =
-    selectedBrandEl.innerText === "All" ? null : selectedBrandEl.innerText;
 }
 
-async function loadBrands() {
-  try {
-    const brands = await getSneakerBrands();
-
-    const allBrandsEl = document.createElement("div");
-    allBrandsEl.className =
-      "bg-[#343A40] rounded-3xl text-white w-full text-[17px] py-[4px] px-[18px] flex justify-center items-center cursor-pointer";
-    allBrandsEl.innerText = "All";
-    allBrandsEl.addEventListener("click", () => {
-      getProducts();
-      brandClicked(allBrandsEl);
-    });
-    productBrands.append(allBrandsEl);
-
-    brands.forEach((brand) => {
-      const brandEl = document.createElement("div");
-      brandEl.className =
-        "py-[3px] px-[10px] w-full border-2 border-[#343A40] rounded-3xl flex justify-center items-center whitespace-nowrap";
-      brandEl.innerHTML = brand;
-      brandEl.addEventListener("click", () => {
-        getProducts(brand);
-        brandClicked(brandEl);
-      });
-      productBrands.append(brandEl);
-    });
-  } catch (error) {
-    errorHandler(error);
-  }
-}
 loadBrands();
 
 function pagination(page, totalPages) {
   pages.innerHTML = "";
 
-  const maxPage = 5;
   const startPage = 1;
-  const endPage = Math.min(maxPage, totalPages);
 
-  for (let i = startPage; i <= endPage; i++) {
+  for (let i = startPage; i <= totalPages; i++) {
     const pageSpan = document.createElement("span");
     pageSpan.innerText = i;
     pageSpan.className = `px-3 py-1 ${
@@ -228,3 +234,11 @@ logOut.addEventListener("click", (e) => {
   removeSessionToken();
   window.location.href = "./login";
 });
+
+function authGuard() {
+  const token = getSessionToken();
+  if (!token) {
+    window.location.href = "./login";
+  }
+}
+authGuard();
